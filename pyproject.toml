@@ -7,8 +7,29 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+envparse = "^0.2.0"
+psycopg2-binary = "^2.9.6"
 
+
+[tool.poetry.group.dev.dependencies]
+django-extensions = "^3.2.1"
+pre-commit = "^3.2.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+skip-string-normalization = true
+skip-magic-trailing-coma = true
+exclude = '''
+(
+  /(
+      \.git
+    | \.github
+    | \.venv
+  )/
+)
+'''
