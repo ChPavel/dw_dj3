@@ -1,0 +1,8 @@
+**
+
+!core
+!todolist
+!entrypoint.sh
+!manage.py
+!poetry.lock
+!pyproject.toml
