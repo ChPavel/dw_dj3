@@ -3,16 +3,14 @@ version: '3.8'
 services:
 
   db:
-    image: postgres:15.1-alpine
+    image: postgres:15.1
     restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - pg_todolist3:/var/lib/postgresql/data/
-    ports:
-      - 5432:5432
+      - pg_todolist_data:/var/lib/postgresql/data/
     healthcheck:
       test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
       timeout: 3s
@@ -20,18 +18,12 @@ services:
       interval: 3s
 
   api:
-    build: .
+    image: foltonhill/todolist:latest
     env_file: .env
-    environment:
-      POSTGRES_HOST: db
     depends_on:
       db:
         condition: service_healthy
-    ports:
-      - "8000:8000"
     volumes:
-      - ./core:/opt/core
-      - ./todolist:/opt/todolist
       - django_static:/opt/static
 
   frontend:
@@ -42,9 +34,9 @@ services:
       api:
         condition: service_started
     volumes:
-      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - django_static:/usr/share/nginx/html/static
 
 volumes:
-  pg_todolist3:
+  pg_todolist_data:
   django_static:
