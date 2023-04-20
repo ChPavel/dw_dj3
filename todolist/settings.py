@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third-party apps
     'rest_framework',
+    'django_filters',
     'social_django',
     # my apps
     'core',
+    'todolist.goals',
 ]
 
 if DEBUG:
@@ -153,3 +155,5 @@ SOCIAL_AUTH_VK_EXTRA_DATA = [
     ('email', 'email'),
 ]
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
+
+REST_FRAMEWORK = {'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'}
