@@ -4,12 +4,14 @@ from rest_framework import generics, permissions
 from rest_framework.filters import OrderingFilter, SearchFilter
 
 from todolist.goals.filters import GoalDateFilter
-from todolist.goals.models import GoalCategory, Goal
+from todolist.goals.models import GoalCategory, Goal, GoalComment
 from todolist.goals.serializers import (
     GoalCategoryCreateSerializer,
     GoalCategorySerializer,
     GoalCreateSerializer,
     GoalSerializer,
+    GoalCommentSerializer,
+    GoalCommentCreateSerializer,
 )
 
 
@@ -31,13 +33,13 @@ class GoalCategoryListView(generics.ListAPIView):
 
 
 class GoalCategoryView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return GoalCategory.objects.select_related('user').filter(user=self.request.user, is_deleted=False)
 
-    def perform_destroy(self, instance) -> None:
+    def perform_destroy(self, instance: GoalCategory) -> None:
         with transaction.atomic():
             instance.is_deleted = True
             instance.save(update_fields=('is_deleted',))
@@ -80,3 +82,35 @@ class GoalView(generics.RetrieveUpdateDestroyAPIView):
     def perform_destroy(self, instance: Goal):
         instance.status = Goal.Status.archived
         instance.save(update_fields=('status',))
+
+
+class GoalCommentCreateView(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GoalCommentCreateSerializer
+
+
+class GoalCommentListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GoalCommentSerializer
+    filter_backends = [OrderingFilter]
+    ordering_fields = ('goal',)
+
+    def get_queryset(self):
+        return (
+            GoalComment.objects.select_related('user')
+            .order_by('-created')
+            .filter(user=self.request.user, category__is_deleted=False)
+            .exclude(status=Goal.Status.archived)
+        )
+
+
+class GoalCommentView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GoalCommentSerializer
+
+    def get_queryset(self):
+        return (
+            GoalComment.objects.select_related('user')
+            .filter(user=self.request.user, category__is_deleted=False)
+            .exclude(status=Goal.Status.archived)
+        )

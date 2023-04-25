@@ -4,7 +4,7 @@ on:
   push:
     branches-ignore:
       - main
-      - dev-35
+      - dev_36
 
 jobs:
   build:
