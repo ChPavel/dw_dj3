@@ -17,7 +17,7 @@ class GoalAdmin(admin.ModelAdmin):
 
 
 @admin.register(GoalComment)
-class GoalComment(admin.ModelAdmin):
-    list_display = ('user', 'goal', 'text', 'created', 'updated')
+class GoalCommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'text', 'created', 'updated', 'goal')
     search_fields = ('text',)
     list_filter = ('created', 'updated')
