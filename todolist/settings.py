@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_filters',
     'social_django',
     # my apps
+    'drf_spectacular',
     'core',
     'todolist.goals',
 ]
@@ -159,5 +160,11 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    # 'PAGE_SIZE': 5,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Todolist3 API',
+    'DESCRIPTION': 'Event organizer',
+    'VERSION': '1.0.0',
 }
