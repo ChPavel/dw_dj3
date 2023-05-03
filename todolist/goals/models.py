@@ -49,7 +49,7 @@ class Goal(BaseModel):
         verbose_name = 'Цель'
         verbose_name_plural = 'Цели'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
@@ -59,9 +59,8 @@ class GoalComment(BaseModel):
         verbose_name_plural = 'Комментарии'
 
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='comments')
-    category = models.ForeignKey(GoalCategory, on_delete=models.PROTECT, related_name='comments')
     goal = models.ForeignKey(Goal, on_delete=models.CASCADE, related_name='comments')
-    text = models.TextField(null=True, blank=True)
+    text = models.TextField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.text
