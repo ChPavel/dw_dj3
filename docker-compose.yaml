@@ -32,7 +32,9 @@ services:
     volumes:
       - ./core:/opt/core
       - ./todolist:/opt/todolist
+      - ./bot:/opt/bot
       - django_static:/opt/static
+    command: python manage.py runserver 0.0.0.0:8000
 
   frontend:
     image: sermalenk/skypro-front:lesson-38

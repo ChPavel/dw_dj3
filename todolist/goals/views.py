@@ -98,7 +98,7 @@ class GoalListView(generics.ListAPIView):
     ordering = ['title']
     search_fields = ('title', 'description')
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Goal]:
         return (
             Goal.objects.select_related('user')
             .filter(user=self.request.user, category__is_deleted=False)
@@ -117,7 +117,7 @@ class GoalView(generics.RetrieveUpdateDestroyAPIView):
             .exclude(status=Goal.Status.archived)
         )
 
-    def perform_destroy(self, instance: Goal):
+    def perform_destroy(self, instance: Goal) -> None:
         instance.status = Goal.Status.archived
         instance.save(update_fields=('status',))
 
