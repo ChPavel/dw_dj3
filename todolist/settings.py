@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'core',
     'todolist.goals',
+    'bot',
 ]
 
 if DEBUG:
@@ -146,6 +147,8 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/logged-in'
 SOCIAL_AUTH_USER_MODEL = 'core.User'
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+
+BOT_TOKEN = env.str('BOT_TOKEN')
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
