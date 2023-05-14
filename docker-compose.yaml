@@ -47,6 +47,20 @@ services:
       - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf
       - django_static:/usr/share/nginx/html/static
 
+  bot:
+    build: .
+    env_file: .env
+    environment:
+      POSTGRES_HOST: db
+      API_HOST: api
+      FRONTEND_HOST: frontend
+    depends_on:
+      frontend:
+        condition: service_started
+    volumes:
+      - ./bot:/opt/bot
+    command: python manage.py runbot
+
 volumes:
   pg_todolist3:
   django_static:

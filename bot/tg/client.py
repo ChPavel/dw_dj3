@@ -29,6 +29,7 @@ class TgClient:
     def _get(self, method: str, **params):
         url: str = self.get_url(method)
         response = requests.get(url, params=params)
+        # print(response.status_code, response.json())
         if not response.ok:
             logger.error('Status code: %s. Body: %s', response.status_code, response.content)
             raise RuntimeError
