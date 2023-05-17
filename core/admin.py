@@ -9,9 +9,8 @@ from core.models import User
 class CustomUserAdmin(
     UserAdmin
 ):  # CustomUserAdmin(UserAdmin) можно так PersonalAdmin(admin.ModelAdmin) но пароль в админке не поменять
-    """# наследование от UserAdmin, а не от admin.ModelAdmi позволяет не писать list_filter и search_fields
-    Класс настройки админпанели.
-    """
+    # наследование от UserAdmin, а не от admin.ModelAdmi позволяет не писать list_filter и search_fields
+    """Класс настройки админпанели."""
 
     # exclude = ('password',) # У пользователя скрыт пароль.
     list_display = [

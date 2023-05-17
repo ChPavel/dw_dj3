@@ -4,6 +4,8 @@ from core.models import User
 
 
 class BaseModel(models.Model):
+    """Абстрактная базовая модель, остальные наследуют поля от неё"""
+
     created = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Дата последнего обновления', auto_now=True)
 
@@ -12,6 +14,8 @@ class BaseModel(models.Model):
 
 
 class Board(BaseModel):
+    """Модель доски"""
+
     class Meta:
         verbose_name = 'Доска'
         verbose_name_plural = 'Доски'
@@ -24,6 +28,8 @@ class Board(BaseModel):
 
 
 class BoardParticipant(BaseModel):
+    """Модель участника доски"""
+
     class Meta:
         unique_together = ('board', 'user')
         verbose_name = 'Участник'
@@ -42,6 +48,8 @@ class BoardParticipant(BaseModel):
 
 
 class GoalCategory(BaseModel):
+    """Модель категории"""
+
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
@@ -56,6 +64,8 @@ class GoalCategory(BaseModel):
 
 
 class Goal(BaseModel):
+    """Модель цели"""
+
     class Status(models.IntegerChoices):
         to_do = 1, 'К выполнению'
         in_progress = 2, 'В процессе'
@@ -85,6 +95,8 @@ class Goal(BaseModel):
 
 
 class GoalComment(BaseModel):
+    """Модель комментария"""
+
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'

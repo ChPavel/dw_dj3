@@ -3,7 +3,7 @@ from django.utils import timezone
 from pytest_factoryboy import register
 
 from core.models import User
-from todolist.goals.models import Board, BoardParticipant
+from todolist.goals.models import Board, BoardParticipant, GoalCategory
 
 
 @register
@@ -48,3 +48,13 @@ class BoardParticipantFactory(DatesFactoryMixin):
 
     class Meta:
         model = BoardParticipant
+
+
+@register
+class CategoryFactory(DatesFactoryMixin):
+    title = factory.Faker('sentence')
+    user = factory.SubFactory(UserFactory)
+    board = factory.SubFactory(BoardFactory)
+
+    class Meta:
+        model = GoalCategory

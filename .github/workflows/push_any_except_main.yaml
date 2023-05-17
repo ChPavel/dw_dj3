@@ -4,7 +4,7 @@ on:
   push:
     branches-ignore:
       - main
-      - dev_38
+      - finaly
 
 jobs:
   test: # для тестов

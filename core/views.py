@@ -1,5 +1,4 @@
 from typing import Any
-
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, RetrieveUpdateDestroyAPIView
@@ -7,13 +6,14 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from rest_framework.permissions import IsAuthenticated
-
 from rest_framework.exceptions import AuthenticationFailed
 from core.models import User
 from core.serializers import CreateUserSerializer, ProfileSerializer, LoginSerializer, UpdatePasswordSerializer
 
 
 class SignUpView(GenericAPIView):
+    """Создание пользователя"""
+
     serializer_class = CreateUserSerializer
 
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
@@ -26,6 +26,8 @@ class SignUpView(GenericAPIView):
 
 
 class LoginView(GenericAPIView):
+    """Авторизация пользователя"""
+
     serializer_class = LoginSerializer
 
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
@@ -44,10 +46,12 @@ class LoginView(GenericAPIView):
 
 
 class ProfileView(RetrieveUpdateDestroyAPIView):
+    """Профиль пользователя (получение, удаление)"""
+
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_object(self):
+    def get_object(self) -> dict:
         return self.request.user
 
     def delete(self, request: Request, *args: Any, **kwargs: Any) -> Response:
@@ -56,6 +60,8 @@ class ProfileView(RetrieveUpdateDestroyAPIView):
 
 
 class UpdatePasswordView(GenericAPIView):
+    """Обновление пароля пользователя"""
+
     serializer_class = UpdatePasswordSerializer
     permission_classes = [IsAuthenticated]
 

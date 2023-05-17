@@ -1,11 +1,12 @@
 import django_filters
 from django.db import models
 from django_filters import rest_framework
-
 from todolist.goals.models import Goal
 
 
 class GoalDateFilter(rest_framework.FilterSet):
+    """Фильтры для целей"""
+
     class Meta:
         model = Goal
         fields = {

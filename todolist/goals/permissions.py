@@ -15,16 +15,6 @@ class BoardPermission(IsAuthenticated):
 
         return BoardParticipant.objects.filter(**_filters).exists()
 
-    # Вариант:
-    #     if request.method in SAFE_METHODS:
-    #         return BoardParticipant.objects.filter(
-    #             user_id=request.user.id, board_id=obj.id
-    #         )
-    #     else:
-    #         return BoardParticipant.objects.filter(
-    #             user_id=request.user.id, board_id=obj.id, role=BoardParticipant.Role.owner
-    #         )
-
 
 class GoalCategoryPermission(IsAuthenticated):
     """Проверка прав доступа к категории"""

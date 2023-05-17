@@ -17,7 +17,6 @@ django-filter = "^23.1"
 drf-spectacular = "^0.26.2"
 pydantic = "^1.10.7"
 requests = "^2.30.0"
-pytelegrambotapi = "^4.11.0"
 
 [tool.poetry.group.dev.dependencies]
 django-extensions = "^3.2.1"

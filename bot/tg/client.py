@@ -8,6 +8,8 @@ logger = logging.getLogger(__name__)
 
 
 class TgClient:
+    """Обращение к боту"""
+
     def __init__(self, token: str = settings.BOT_TOKEN):
         self.token = token
 
@@ -26,10 +28,9 @@ class TgClient:
         data = self._get(method='sendMessage', chat_id=chat_id, text=text)
         return SendMessageResponse(**data)
 
-    def _get(self, method: str, **params):
+    def _get(self, method: str, **params) -> dict:
         url: str = self.get_url(method)
         response = requests.get(url, params=params)
-        # print(response.status_code, response.json())
         if not response.ok:
             logger.error('Status code: %s. Body: %s', response.status_code, response.content)
             raise RuntimeError

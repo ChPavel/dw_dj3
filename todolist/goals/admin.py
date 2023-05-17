@@ -4,6 +4,8 @@ from todolist.goals.models import GoalCategory, Goal, GoalComment
 
 @admin.register(GoalCategory)
 class GoalCategoryAdmin(admin.ModelAdmin):
+    """Настройка категорий в админ панели"""
+
     list_display = ('title', 'user', 'created', 'updated')
     search_fields = ('title',)
     list_filter = ('is_deleted',)
@@ -11,6 +13,8 @@ class GoalCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Goal)
 class GoalAdmin(admin.ModelAdmin):
+    """Настройка целей в админ панели"""
+
     list_display = ('title', 'user', 'created', 'updated')
     search_fields = ('title', 'description')
     list_filter = ('status', 'priority')
@@ -18,6 +22,8 @@ class GoalAdmin(admin.ModelAdmin):
 
 @admin.register(GoalComment)
 class GoalCommentAdmin(admin.ModelAdmin):
+    """Настройка комментариев в админ панели"""
+
     list_display = ('user', 'text', 'created', 'updated', 'goal')
     search_fields = ('text',)
     list_filter = ('created', 'updated')
