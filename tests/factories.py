@@ -1,7 +1,6 @@
 import factory
 from django.utils import timezone
 from pytest_factoryboy import register
-
 from core.models import User
 from todolist.goals.models import Board, BoardParticipant, GoalCategory
 

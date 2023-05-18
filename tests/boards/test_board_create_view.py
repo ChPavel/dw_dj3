@@ -24,11 +24,13 @@ class TestBoardCreateView:
 
     def test_auth_required(self, client, board_create_data):
         """Неавторизованный пользователь при создании доски получит ошибку авторизации."""
+
         response = client.post(self.url, data=board_create_data())
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_failed_to_create_deleted_board(self, auth_client, board_create_data):
         """Нельзя создавать доску со значением is_deleted=True."""
+
         response = auth_client.post(self.url, data=board_create_data(is_deleted=True))
 
         assert response.status_code == status.HTTP_201_CREATED
@@ -43,6 +45,7 @@ class TestBoardCreateView:
 
     def test_request_user_became_board_owner(self, auth_client, user, board_create_data):
         """Пользователь создавший доску становится её владельцем."""
+
         response = auth_client.post(self.url, data=board_create_data())
 
         assert response.status_code == status.HTTP_201_CREATED
